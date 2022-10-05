@@ -26,19 +26,12 @@ class TypePokemonTagWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          FaIcon(
-            icon,
-            size: 16,
-            color: Colors.white,
-          ),
+          FaIcon(icon, size: 16, color: Colors.white),
           const SizedBox(width: 10),
           Text(
             name,
             style: const TextStyle(
-              fontSize: 16,
-              height: 24 / 16,
-              color: Colors.white,
-            ),
+                fontSize: 16, height: 24 / 16, color: Colors.white),
           ),
         ],
       ),
