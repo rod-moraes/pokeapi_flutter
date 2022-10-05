@@ -114,7 +114,7 @@ class _ListPokemonPageState extends State<ListPokemonPage> {
                     children: [
                       Flex(
                         direction: isTablet ? Axis.vertical : Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -215,6 +215,61 @@ class _ListPokemonPageState extends State<ListPokemonPage> {
                                 )
                               ],
                             ),
+                          ),
+                          const SizedBox(
+                            width: 100,
+                            height: 32,
+                          ),
+                          Flex(
+                            direction:
+                                isTablet ? Axis.horizontal : Axis.vertical,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFFFFF),
+                                      Color(0x00FFFFFF),
+                                    ],
+                                    begin: FractionalOffset(1.0, 1.0),
+                                    end: FractionalOffset(0.0, 0.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp,
+                                  ),
+                                ),
+                                width: isTablet ? 180 : 1,
+                                height: isTablet ? 1 : 180,
+                              ),
+                              const SizedBox(height: 24, width: 24),
+                              const FaIcon(
+                                FontAwesomeIcons.fire,
+                                size: 48,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(height: 24, width: 24),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFFFFF),
+                                      Color(0x00FFFFFF),
+                                    ],
+                                    begin: FractionalOffset(0.0, 0.0),
+                                    end: FractionalOffset(1.0, 1.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp,
+                                  ),
+                                ),
+                                width: isTablet ? 180 : 1,
+                                height: isTablet ? 1 : 180,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 100,
+                            height: 32,
                           ),
                           Flexible(
                               child: Center(
