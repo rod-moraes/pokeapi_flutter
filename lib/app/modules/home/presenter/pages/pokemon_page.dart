@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:pokeapi_flutter/app/modules/home/presenter/components/canvas_waves.dart';
 import 'package:pokeapi_flutter/app/modules/home/presenter/components/list_pokemon/list_pokemon.dart';
@@ -17,11 +18,9 @@ import '../stores/pokemon_store.dart';
 class PokemonPage extends StatefulWidget {
   final int offset;
   final int? id;
-  const PokemonPage({
-    Key? key,
-    this.offset = 0,
-    this.id,
-  }) : super(key: key);
+  final bool favorite;
+  const PokemonPage({Key? key, this.offset = 0, this.id, this.favorite = false})
+      : super(key: key);
   @override
   State<PokemonPage> createState() => _PokemonPageState();
 }
@@ -32,6 +31,8 @@ class _PokemonPageState extends State<PokemonPage> {
 
   @override
   void initState() {
+    storeList.isFavorite = widget.favorite;
+    print(widget.favorite);
     storeList.setOffset(widget.offset);
     storePokemon.setIdPokemon(widget.id);
     super.initState();
@@ -39,6 +40,7 @@ class _PokemonPageState extends State<PokemonPage> {
 
   @override
   Widget build(BuildContext context) {
+    final desiredWidth = ResponsividadeUtils.desiredWidth;
     final isTablet = ResponsividadeUtils.isTablet(context);
     return Scaffold(
       backgroundColor: const Color(0xff060B28),
@@ -81,6 +83,29 @@ class _PokemonPageState extends State<PokemonPage> {
             ),
           ),
           SliverToBoxAdapter(
+            child: Center(
+              child: SizedBox(
+                width: isTablet ? 600 : desiredWidth,
+                child: Row(
+                  children: [
+                    IconButtonWidget(
+                        icon: FontAwesomeIcons.house,
+                        onTap: () {
+                          storeList.offset = 0;
+                          storeList.setFavorite(false);
+                        }),
+                    IconButtonWidget(
+                        icon: FontAwesomeIcons.solidStar,
+                        onTap: () {
+                          storeList.offset = 0;
+                          storeList.setFavorite(true);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
             child: Observer(
               builder: (context) {
                 final state = storeList.state;
@@ -91,6 +116,26 @@ class _PokemonPageState extends State<PokemonPage> {
                     child: const Center(child: CircularProgressIndicator()),
                   );
                 } else if (state is SuccessState) {
+                  if (state.list.isEmpty) {
+                    return Center(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 32),
+                          Image.asset('assets/images/pikachu.png'),
+                          const Text(
+                            'Ops! Essa pagina está vazia!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24,
+                              height: 32 / 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                        ],
+                      ),
+                    );
+                  }
                   return Center(child: ListPokemon(pokemons: state.list));
                 } else if (state is ErrorState) {
                   return Text(state.error.message);

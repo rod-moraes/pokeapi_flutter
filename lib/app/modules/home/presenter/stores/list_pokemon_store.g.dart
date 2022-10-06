@@ -9,6 +9,22 @@ part of 'list_pokemon_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ListPokemonStore on _ListPokemonStoreBase, Store {
+  late final _$isFavoriteAtom =
+      Atom(name: '_ListPokemonStoreBase.isFavorite', context: context);
+
+  @override
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
+  }
+
+  @override
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
+    });
+  }
+
   late final _$offsetAtom =
       Atom(name: '_ListPokemonStoreBase.offset', context: context);
 
@@ -45,6 +61,17 @@ mixin _$ListPokemonStore on _ListPokemonStoreBase, Store {
       ActionController(name: '_ListPokemonStoreBase', context: context);
 
   @override
+  void setFavorite(bool favorite) {
+    final _$actionInfo = _$_ListPokemonStoreBaseActionController.startAction(
+        name: '_ListPokemonStoreBase.setFavorite');
+    try {
+      return super.setFavorite(favorite);
+    } finally {
+      _$_ListPokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setOffset(int value) {
     final _$actionInfo = _$_ListPokemonStoreBaseActionController.startAction(
         name: '_ListPokemonStoreBase.setOffset');
@@ -69,6 +96,7 @@ mixin _$ListPokemonStore on _ListPokemonStoreBase, Store {
   @override
   String toString() {
     return '''
+isFavorite: ${isFavorite},
 offset: ${offset},
 state: ${state}
     ''';

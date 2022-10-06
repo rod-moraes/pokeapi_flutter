@@ -70,9 +70,10 @@ class PokeapiRepositoryImpl implements PokeapiRepositoryContract {
   }
 
   @override
-  Future<Either<Failure, List<Pokemon>>> getFavoritesPokemon() async {
+  Future<Either<Failure, List<Pokemon>>> getFavoritesPokemon(
+      int offset, int limit) async {
     try {
-      final result = await localDataSource.getListPokemon();
+      final result = await localDataSource.getListPokemon(offset, limit);
       return Right(result);
     } on LocalException {
       return const Left(LocalFailure());

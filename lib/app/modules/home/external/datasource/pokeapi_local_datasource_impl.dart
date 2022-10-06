@@ -32,10 +32,18 @@ class PokeapiLocalDataSourceImpl extends PokeapiLocalDataSourceContract {
   }
 
   @override
-  Future<List<Pokemon>> getListPokemon() async {
+  Future<List<Pokemon>> getListPokemon(int offset, int limit) async {
     List<Pokemon> pokemons = (_pokemonDb).toMap().values.toList();
     if (pokemons != null) {
-      return pokemons;
+      try {
+        final poke = pokemons.sublist(offset);
+        if (poke.length > limit) {
+          return poke.sublist(0, limit);
+        }
+        return poke;
+      } catch (e) {
+        return [];
+      }
     } else {
       throw LocalException();
     }
@@ -45,7 +53,7 @@ class PokeapiLocalDataSourceImpl extends PokeapiLocalDataSourceContract {
   Future<Pokemon> getPokemon(int id) async {
     Pokemon? pokemon = (_pokemonDb).get(id);
     if (pokemon != null) {
-      return pokemon;
+      return pokemon.copyWith(isFavorite: true);
     } else {
       throw LocalException();
     }
@@ -54,7 +62,7 @@ class PokeapiLocalDataSourceImpl extends PokeapiLocalDataSourceContract {
   @override
   Future<void> addPokemon(Pokemon pokemon) async {
     try {
-      await (_pokemonDb).put(pokemon.id, pokemon);
+      await (_pokemonDb).put(pokemon.id, pokemon.copyWith(isFavorite: true));
     } catch (e) {
       throw LocalException();
     }

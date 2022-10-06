@@ -5,7 +5,7 @@ import '../../../../../core/errors/failures.dart';
 import '../entities/pokemon.dart';
 
 abstract class GetFavoritesPokemonContract {
-  Future<Either<Failure, List<Pokemon>>> call();
+  Future<Either<Failure, List<Pokemon>>> call(int offset, int limit);
 }
 
 class GetFavoritesPokemonImpl implements GetFavoritesPokemonContract {
@@ -14,7 +14,7 @@ class GetFavoritesPokemonImpl implements GetFavoritesPokemonContract {
   GetFavoritesPokemonImpl(this.repository);
 
   @override
-  Future<Either<Failure, List<Pokemon>>> call() async {
-    return await repository.getFavoritesPokemon();
+  Future<Either<Failure, List<Pokemon>>> call(int offset, int limit) async {
+    return await repository.getFavoritesPokemon(offset, limit);
   }
 }

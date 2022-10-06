@@ -55,7 +55,7 @@ class AppModule extends Module {
 
         Bind.lazySingleton((i) => FavoritePokemonStore(i(), i())),
         Bind.lazySingleton((i) => PokemonStore(i(), i())),
-        Bind.lazySingleton((i) => ListPokemonStore(i())),
+        Bind.lazySingleton((i) => ListPokemonStore(i(), i())),
       ];
 
   @override
@@ -65,8 +65,12 @@ class AppModule extends Module {
           child: (context, args) {
             final offset = args.queryParams['offset'] ?? '';
             final id = args.queryParams['id'] ?? '';
+            final favorite = args.queryParams['favorite'] ?? '';
             return PokemonPage(
-                offset: int.tryParse(offset) ?? 0, id: int.tryParse(id));
+              offset: int.tryParse(offset) ?? 0,
+              id: int.tryParse(id),
+              favorite: favorite == 'true',
+            );
           },
         ),
       ];

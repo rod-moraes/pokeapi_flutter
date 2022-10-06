@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:async/async.dart';
+import 'package:pokeapi_flutter/app/modules/home/domain/usecase/get_favorites_pokemon.dart';
 import '../../domain/usecase/get_list_pokemon.dart';
 import '../states/list_pokemon_state.dart';
 
@@ -9,10 +10,17 @@ class ListPokemonStore = _ListPokemonStoreBase with _$ListPokemonStore;
 
 abstract class _ListPokemonStoreBase with Store {
   final GetListPokemonContract usecase;
+  final GetFavoritesPokemonContract usecaseFavorite;
   CancelableOperation? cancellableOperation;
 
-  _ListPokemonStoreBase(this.usecase) {
+  @observable
+  bool isFavorite = false;
+
+  _ListPokemonStoreBase(this.usecase, this.usecaseFavorite) {
     reaction((_) => offset, (offset) async {
+      stateReaction(offset, cancellableOperation);
+    }, delay: 500);
+    reaction((_) => isFavorite, (isFavorite) async {
       stateReaction(offset, cancellableOperation);
     }, delay: 500);
   }
@@ -28,7 +36,8 @@ abstract class _ListPokemonStoreBase with Store {
   }
 
   Future<ListPokemonState> listPokemonOffset(int value) async {
-    var result = await usecase(value, 6);
+    var result =
+        isFavorite ? await usecaseFavorite(value, 6) : await usecase(value, 6);
     return result.fold((l) => ErrorState(l), (r) => SuccessState(r));
   }
 
@@ -39,8 +48,15 @@ abstract class _ListPokemonStoreBase with Store {
   ListPokemonState state = const StartState();
 
   @action
+  void setFavorite(bool favorite) {
+    if (state is! LoadingState) {
+      isFavorite = favorite;
+    }
+  }
+
+  @action
   void setOffset(int value) {
-    if (value >= 0) {
+    if (value >= 0 && state is! LoadingState) {
       offset = value;
     }
   }
