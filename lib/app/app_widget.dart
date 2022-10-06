@@ -1,8 +1,7 @@
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'app_module.dart';
+import 'package:pokeapi_flutter/app/modules/home/infra/datasource/pokeapi_local_datasource_contract.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -15,8 +14,9 @@ class _AppWidgetState extends State<AppWidget> {
   late final Future<void> _future;
   var route = Modular.routerDelegate;
   Future<void> _frameFuture() async {
+    final local = Modular.get<PokeapiLocalDataSourceContract>();
+    await local.init();
     Modular.setObservers([Asuka.asukaHeroController]);
-    await Modular.isModuleReady<AppModule>();
     Modular.to.addListener(() {
       print(Modular.to.path);
     });
@@ -33,6 +33,7 @@ class _AppWidgetState extends State<AppWidget> {
     return FutureBuilder(
       future: _future,
       builder: (context, snapshot) {
+        print('a');
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp.router(
             builder: Asuka.builder,

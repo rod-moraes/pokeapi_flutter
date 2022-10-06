@@ -4,5 +4,6 @@ import 'package:pokeapi_flutter/app/app_module.dart';
 
 import 'app/app_widget.dart';
 
-void main() =>
-    runApp(ModularApp(module: AppModule(), child: const AppWidget()));
+void main() async {
+  runApp(ModularApp(module: AppModule(), child: const AppWidget()));
+}

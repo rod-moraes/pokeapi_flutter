@@ -40,8 +40,8 @@ class PokeapiRepositoryImpl implements PokeapiRepositoryContract {
         final list = await remoteDataSource.getListPokemon(offset, limit);
         final listPokemon = await Stream.fromIterable(list).asyncMap((e) async {
           final pokemon = await remoteDataSource.getPokemon(e);
-          // final isFavorite = await localDataSource.inPokemonDb(pokemon.id);
-          return pokemon.copyWith(isFavorite: false);
+          final isFavorite = await localDataSource.inPokemonDb(pokemon.id);
+          return pokemon.copyWith(isFavorite: isFavorite);
         }).toList();
         return Right(listPokemon);
       } on ServerException {
@@ -58,8 +58,8 @@ class PokeapiRepositoryImpl implements PokeapiRepositoryContract {
     if (await networkConnect.isConnected) {
       try {
         final pokemon = await remoteDataSource.getPokemon(search);
-        //final isFavorite = await localDataSource.inPokemonDb(pokemon.id);
-        final result = pokemon.copyWith(isFavorite: false);
+        final isFavorite = await localDataSource.inPokemonDb(pokemon.id);
+        final result = pokemon.copyWith(isFavorite: isFavorite);
         return Right(result);
       } on ServerException {
         return const Left(ServerFailure());

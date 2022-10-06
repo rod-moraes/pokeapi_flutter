@@ -19,12 +19,13 @@ import 'modules/home/external/datasource/pokeapi_local_datasource_impl.dart';
 import 'modules/home/infra/datasource/pokeapi_local_datasource_contract.dart';
 import 'modules/home/infra/datasource/pokeapi_remote_datasource_contract.dart';
 import 'modules/home/presenter/pages/pokemon_page.dart';
+import 'modules/home/presenter/stores/favorite_pokemon_store.dart';
 import 'modules/home/presenter/stores/list_pokemon_store.dart';
 
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.lazySingleton<PokeapiLocalDataSourceContract>(
+        Bind.singleton<PokeapiLocalDataSourceContract>(
             (i) => PokeapiLocalDataSourceImpl()),
         Bind.factory<InternetConnectionCheckerPlus>(
             (i) => InternetConnectionCheckerPlus()),
@@ -52,6 +53,7 @@ class AppModule extends Module {
         Bind.factory<SetFavoritePokemonContract>(
             (i) => SetFavoritePokemonImpl(i())),
 
+        Bind.lazySingleton((i) => FavoritePokemonStore(i(), i())),
         Bind.lazySingleton((i) => PokemonStore(i(), i())),
         Bind.lazySingleton((i) => ListPokemonStore(i())),
       ];
