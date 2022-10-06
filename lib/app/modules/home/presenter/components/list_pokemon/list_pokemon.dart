@@ -21,6 +21,7 @@ class ListPokemon extends StatelessWidget {
       child: GridView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 384,
             mainAxisExtent: 468,

@@ -31,23 +31,28 @@ class CardTopPokemon extends StatelessWidget {
             children: [
               Flexible(child: DadosTopPokemon(pokemon: pokemon)),
               const SizedBox(width: 100, height: 32),
-              Flex(
-                direction: isTablet ? Axis.horizontal : Axis.vertical,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const DividerTopPokemon(),
-                  const SizedBox(height: 24, width: 24),
-                  Image.asset(
-                    TypePokemonEnum.values.byName(pokemon.types.first).path,
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.contain,
-                    filterQuality: FilterQuality.high,
+              Center(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Flex(
+                    direction: isTablet ? Axis.horizontal : Axis.vertical,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const DividerTopPokemon(),
+                      const SizedBox(height: 24, width: 24),
+                      Image.asset(
+                        TypePokemonEnum.values.byName(pokemon.types.first).path,
+                        height: 48,
+                        width: 48,
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.high,
+                      ),
+                      const SizedBox(height: 24, width: 24),
+                      const DividerTopPokemon(isRotate: true),
+                    ],
                   ),
-                  const SizedBox(height: 24, width: 24),
-                  const DividerTopPokemon(isRotate: true),
-                ],
+                ),
               ),
               const SizedBox(width: 100, height: 32),
               Flexible(
