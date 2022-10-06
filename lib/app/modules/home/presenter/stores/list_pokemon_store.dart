@@ -36,6 +36,7 @@ abstract class _ListPokemonStoreBase with Store {
   }
 
   Future<ListPokemonState> listPokemonOffset(int value) async {
+    await Future.delayed(const Duration(milliseconds: 500));
     var result =
         isFavorite ? await usecaseFavorite(value, 6) : await usecase(value, 6);
     return result.fold((l) => ErrorState(l), (r) => SuccessState(r));
