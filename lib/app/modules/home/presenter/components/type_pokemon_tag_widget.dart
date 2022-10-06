@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../domain/entities/type_pokemon.dart';
 
 class TypePokemonTagWidget extends StatelessWidget {
-  final String name;
-  final Color color;
-  final IconData icon;
+  final TypePokemonEnum typePokemon;
   const TypePokemonTagWidget({
     Key? key,
-    required this.name,
-    required this.color,
-    required this.icon,
+    required this.typePokemon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color,
+        color: typePokemon.color,
         borderRadius: BorderRadius.circular(8),
       ),
       height: 32,
@@ -26,10 +23,10 @@ class TypePokemonTagWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          FaIcon(icon, size: 16, color: Colors.white),
+          Image.asset(typePokemon.path, width: 16, height: 16),
           const SizedBox(width: 10),
           Text(
-            name,
+            typePokemon.name,
             style: const TextStyle(
                 fontSize: 16, height: 24 / 16, color: Colors.white),
           ),

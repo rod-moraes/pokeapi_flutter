@@ -5,12 +5,14 @@ class PokemonModel extends Pokemon {
     required int id,
     required String name,
     required List<String> types,
+    required String description,
     required String spriteDreamUrl,
     required String spriteHomeUrl,
   }) : super(
           id: id,
           name: name,
           types: types,
+          description: description,
           spriteDreamUrl: spriteDreamUrl,
           spriteHomeUrl: spriteHomeUrl,
         );
@@ -20,6 +22,7 @@ class PokemonModel extends Pokemon {
       id: json['id'],
       name: json['name'],
       types: _getTypesFromJson(json),
+      description: _getDescriptionFromJson(json),
       spriteHomeUrl: _getSpriteHomeUrlFromJson(json),
       spriteDreamUrl: _getSpriteDreamUrlFromJson(json),
     );
@@ -29,6 +32,9 @@ class PokemonModel extends Pokemon {
     return {
       "id": id,
       "name": name,
+      "flavor_text_entries": [
+        {'flavor_text': description}
+      ],
       "types": types
           .map((type) => {
                 "type": {"name": type}
@@ -51,10 +57,23 @@ List<String> _getTypesFromJson(Map<String, dynamic> json) {
   }).toList();
 }
 
+String _getDescriptionFromJson(Map<String, dynamic> json) {
+  return json['flavor_text_entries'][0]['flavor_text']
+          ?.toString()
+          .replaceAll('\n', ' ') ??
+      '';
+}
+
 String _getSpriteHomeUrlFromJson(Map<String, dynamic> json) {
-  return json['sprites']['other']['dream_world']['front_default'];
+  return json['sprites']['other']['dream_world']['front_default'] ??
+      json['sprites']['other']['official-artwork']['front_default'] ??
+      json['sprites']['other']['home']['front_default'] ??
+      '';
 }
 
 String _getSpriteDreamUrlFromJson(Map<String, dynamic> json) {
-  return json['sprites']['other']['official-artwork']['front_default'];
+  return json['sprites']['other']['official-artwork']['front_default'] ??
+      json['sprites']['other']['dream_world']['front_default'] ??
+      json['sprites']['other']['home']['front_default'] ??
+      '';
 }

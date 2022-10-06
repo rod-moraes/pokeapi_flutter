@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:pokeapi_flutter/app/modules/home/presenter/components/canvas_waves.dart';
+import 'package:pokeapi_flutter/app/modules/home/presenter/components/list_pokemon/list_pokemon.dart';
+import 'package:pokeapi_flutter/app/modules/home/presenter/states/list_pokemon_state.dart';
+import 'package:pokeapi_flutter/app/modules/home/presenter/stores/list_pokemon_store.dart';
 
 import '../../../../shared/components/app_bar_pokemon.dart';
+import '../../../../shared/components/icon_button_widget.dart';
 import '../../../../shared/utils/responsividade_utils.dart';
 import '../components/card_top_pokemon/card_top_pokemon.dart';
+import '../states/pokemon_state.dart' as pokemonState;
+import '../stores/pokemon_store.dart';
 
 class PokemonPage extends StatefulWidget {
-  const PokemonPage({super.key});
-
+  final int offset;
+  final int? id;
+  const PokemonPage({
+    Key? key,
+    this.offset = 0,
+    this.id,
+  }) : super(key: key);
   @override
   State<PokemonPage> createState() => _PokemonPageState();
 }
 
 class _PokemonPageState extends State<PokemonPage> {
+  final storeList = Modular.get<ListPokemonStore>();
+  final storePokemon = Modular.get<PokemonStore>();
+
+  @override
+  void initState() {
+    storeList.setOffset(widget.offset);
+    storePokemon.setIdPokemon(widget.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final isTablet = ResponsividadeUtils.isTablet(context);
@@ -37,17 +61,79 @@ class _PokemonPageState extends State<PokemonPage> {
               child: Column(
                 children: [
                   const AppBarPokemon(),
-                  const Center(child: CardTopPokemon()),
+                  Observer(
+                    builder: (context) {
+                      final state = storePokemon.state;
+                      if (state is pokemonState.LoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is pokemonState.SuccessState) {
+                        return Center(
+                            child: CardTopPokemon(pokemon: state.pokemon));
+                      } else if (state is pokemonState.ErrorState) {
+                        return Text(state.error.message);
+                      }
+                      return Container();
+                    },
+                  ),
                   WavesCustomPainter.waves(context),
                 ],
               ),
             ),
           ),
           SliverToBoxAdapter(
-              child: Expanded(
-            child: Container(color: Colors.white),
-          )),
-          // const SliverToBoxAdapter(child: Center(child: CardTopPokemon())),
+            child: Observer(
+              builder: (context) {
+                final state = storeList.state;
+                if (state is LoadingState) {
+                  return Container(
+                    height: 550,
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Center(child: CircularProgressIndicator()),
+                  );
+                } else if (state is SuccessState) {
+                  return Center(child: ListPokemon(pokemons: state.list));
+                } else if (state is ErrorState) {
+                  return Text(state.error.message);
+                }
+                return Container();
+              },
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Observer(
+              builder: (context) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButtonWidget(
+                        icon: Icons.arrow_back,
+                        onTap: () {
+                          storeList.setOffset(storeList.offset - 6);
+                        }),
+                    const SizedBox(width: 4),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: Text(
+                        ((storeList.offset / 6) + 1).toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    IconButtonWidget(
+                        icon: Icons.arrow_forward,
+                        onTap: () {
+                          storeList.setOffset(storeList.offset + 6);
+                        }),
+                  ],
+                );
+              },
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 32)),
         ],
       ),
     );

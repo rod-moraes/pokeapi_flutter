@@ -12,12 +12,15 @@ class IconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: onTap,
-      child: Ink(
-        padding: const EdgeInsets.all(12),
-        child: FaIcon(icon, color: Colors.white, size: 28),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Ink(
+          padding: const EdgeInsets.all(12),
+          child: FaIcon(icon, color: Colors.white, size: 28),
+        ),
       ),
     );
   }

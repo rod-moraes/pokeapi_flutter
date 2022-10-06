@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class WavesCustomPainter {
   static Widget waves(BuildContext context) => Stack(
-        alignment: Alignment.bottomCenter,
+        alignment: const Alignment(0.0, 1.2),
         children: [
           CustomPaint(
             size: Size(

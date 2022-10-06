@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:pokeapi_flutter/app/shared/utils/responsividade_utils.dart';
 
+import '../../../domain/entities/pokemon.dart';
+import '../../../domain/entities/type_pokemon.dart';
 import 'dados_top_pokemon.dart';
 import 'divider_top_pokemon.dart';
 
 class CardTopPokemon extends StatelessWidget {
-  const CardTopPokemon({super.key});
+  final Pokemon pokemon;
+  const CardTopPokemon({
+    Key? key,
+    required this.pokemon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +29,30 @@ class CardTopPokemon extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Flexible(child: DadosTopPokemon()),
+              Flexible(child: DadosTopPokemon(pokemon: pokemon)),
               const SizedBox(width: 100, height: 32),
               Flex(
                 direction: isTablet ? Axis.horizontal : Axis.vertical,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  DividerTopPokemon(),
-                  SizedBox(height: 24, width: 24),
-                  FaIcon(FontAwesomeIcons.fire, size: 48, color: Colors.white),
-                  SizedBox(height: 24, width: 24),
-                  DividerTopPokemon(isRotate: true),
+                children: [
+                  const DividerTopPokemon(),
+                  const SizedBox(height: 24, width: 24),
+                  Image.asset(
+                    TypePokemonEnum.values.byName(pokemon.types.first).path,
+                    height: 48,
+                    width: 48,
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.high,
+                  ),
+                  const SizedBox(height: 24, width: 24),
+                  const DividerTopPokemon(isRotate: true),
                 ],
               ),
               const SizedBox(width: 100, height: 32),
               Flexible(
                   child: Center(
-                child: Image.asset('assets/images/charizard.png', width: 520),
+                child: Image.network(pokemon.spriteDreamUrl, width: 520),
               ))
             ],
           ),
