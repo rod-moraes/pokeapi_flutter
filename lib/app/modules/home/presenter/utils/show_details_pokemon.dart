@@ -12,7 +12,7 @@ import '../components/type_pokemon_tag_widget.dart';
 
 class ShowDatailsPokemon {
   static showDetailsPokemon(Pokemon pokemon) {
-    WidgetSpan _progressBar(double value) {
+    WidgetSpan progressBar(String? value) {
       return WidgetSpan(
         child: Container(
           width: 170,
@@ -21,7 +21,7 @@ class ShowDatailsPokemon {
           margin: const EdgeInsets.only(left: 12),
           child: LinearProgressIndicator(
             minHeight: 100,
-            value: value / 100,
+            value: double.parse(value ?? '0') / 100,
             backgroundColor: Colors.grey,
             color: Colors.green,
           ),
@@ -133,10 +133,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[0]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[0]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[0]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                   const SizedBox(height: 24),
                                   Text.rich(
@@ -146,10 +145,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[1]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[1]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[1]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                   const SizedBox(height: 24),
                                   Text.rich(
@@ -159,10 +157,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[2]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[2]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[2]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                   const SizedBox(height: 24),
                                   Text.rich(
@@ -172,10 +169,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[3]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[3]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[3]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                   const SizedBox(height: 24),
                                   Text.rich(
@@ -185,10 +181,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[4]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[4]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[4]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                   const SizedBox(height: 24),
                                   Text.rich(
@@ -198,10 +193,9 @@ class ShowDatailsPokemon {
                                             text: pokemon.stats[5]['base_stat']
                                                     ?.toString() ??
                                                 '0'),
-                                        _progressBar(double.parse(pokemon
-                                                .stats[5]['base_stat']
-                                                ?.toString() ??
-                                            '0')),
+                                        progressBar(pokemon.stats[5]
+                                                ['base_stat']
+                                            ?.toString()),
                                       ])),
                                 ],
                               ),

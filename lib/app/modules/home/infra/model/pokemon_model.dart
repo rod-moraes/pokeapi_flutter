@@ -9,14 +9,39 @@ class PokemonModel extends Pokemon {
     required String spriteDreamUrl,
     required String spriteHomeUrl,
     required List<dynamic> stats,
+    bool? isFavorite,
   }) : super(
-            id: id,
-            name: name,
-            types: types,
-            description: description,
-            spriteDreamUrl: spriteDreamUrl,
-            spriteHomeUrl: spriteHomeUrl,
-            stats: stats);
+          id: id,
+          name: name,
+          types: types,
+          description: description,
+          spriteDreamUrl: spriteDreamUrl,
+          spriteHomeUrl: spriteHomeUrl,
+          stats: stats,
+          isFavorite: isFavorite ?? false,
+        );
+
+  PokemonModel copyWith({
+    int? id,
+    String? name,
+    List<String>? types,
+    String? description,
+    String? spriteDreamUrl,
+    String? spriteHomeUrl,
+    List<dynamic>? stats,
+    bool? isFavorite,
+  }) {
+    return PokemonModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      types: types ?? this.types,
+      description: description ?? this.description,
+      spriteDreamUrl: spriteDreamUrl ?? this.spriteDreamUrl,
+      spriteHomeUrl: spriteHomeUrl ?? this.spriteHomeUrl,
+      stats: stats ?? this.stats,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(

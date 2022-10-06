@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:pokeapi_flutter/app/modules/home/infra/datasource/pokeapi_local_datasource_contract.dart';
+import 'package:pokeapi_flutter/app/modules/home/infra/datasource/pokeapi_remote_datasource_contract.dart';
 import 'package:translator/translator.dart';
 
 import '../../../../../core/errors/exceptions.dart';

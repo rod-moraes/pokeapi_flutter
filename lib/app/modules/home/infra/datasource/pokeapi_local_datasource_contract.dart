@@ -1,6 +1,11 @@
-import 'package:pokeapi_flutter/app/modules/home/infra/model/pokemon_model.dart';
+import '../../domain/entities/pokemon.dart';
 
-abstract class PokeapiRemoteDataSourceContract {
-  Future<PokemonModel> getPokemon(String search);
-  Future<List<String>> getListPokemon(int offset, int limit);
+abstract class PokeapiLocalDataSourceContract {
+  Future<void> init();
+  Future<void> clearCache();
+  Future<bool> inPokemonDb(int id);
+  Future<List<Pokemon>> getListPokemon();
+  Future<Pokemon> getPokemon(int id);
+  Future<void> addPokemon(Pokemon pokemon);
+  Future<void> removePokemon(Pokemon pokemon);
 }
