@@ -92,10 +92,6 @@ class TilePokemon extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Align(
-                      alignment: const Alignment(0.9, -0.9),
-                      child: FavoriteIconButton(pokemon: pokemon),
-                    ),
                   ],
                 ),
               ).asGlass(
@@ -114,6 +110,10 @@ class TilePokemon extends StatelessWidget {
               fit: BoxFit.contain,
               filterQuality: FilterQuality.high,
             ),
+          ),
+          Align(
+            alignment: const Alignment(0.95, -0.15),
+            child: FavoriteIconButton(pokemon: pokemon),
           ),
         ],
       ),

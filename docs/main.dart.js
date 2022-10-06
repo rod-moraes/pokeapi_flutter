@@ -62755,7 +62755,7 @@ n=m.f5(n,new A.a6n(),t.iF)
 n=A.afL(A.ac(A.ac(n,!0,n.$ti.h("aC.E")),!0,t.l7),B.a1)
 m=A.anw(o.b)
 q=t.E
-return A.dp(B.C,A.nj(B.bM,A.a([new A.hb(B.eA,p,p,A.dp(p,A.aiC(A.dp(B.eA,A.nj(B.bM,A.a([A.om(A.a([r,B.ca,n,B.ca,A.fT(m==null?"":m,p,B.v9,p,p),B.eg,new A.tU("Mais Detalhes",B.zJ,l,B.i,new A.a6o(this),p)],q),B.O,B.rm,B.X),new A.hb(B.vP,p,p,new A.uI(o,p),p)],q),B.bE),p,p,p,p,p,p,p),5,5,A.fq(24),B.i),p,p,new A.dT(p,p,p,s,p,new A.jG(B.C,1,B.aq,p,0,k,p,p),B.ab),300,p,p,384),p),new A.hb(B.vM,p,p,A.aeS(o.e,B.fh,B.cg,256,256),p)],q),B.bE),p,p,p,468,p,p,384)}}
+return A.dp(B.C,A.nj(B.bM,A.a([new A.hb(B.eA,p,p,A.dp(p,A.aiC(A.dp(B.eA,A.nj(B.bM,A.a([A.om(A.a([r,B.ca,n,B.ca,A.fT(m==null?"":m,p,B.v9,p,p),B.eg,new A.tU("Mais Detalhes",B.zJ,l,B.i,new A.a6o(this),p)],q),B.O,B.rm,B.X)],q),B.bE),p,p,p,p,p,p,p),5,5,A.fq(24),B.i),p,p,new A.dT(p,p,p,s,p,new A.jG(B.C,1,B.aq,p,0,k,p,p),B.ab),300,p,p,384),p),new A.hb(B.vM,p,p,A.aeS(o.e,B.fh,B.cg,256,256),p),new A.hb(B.vP,p,p,new A.uI(o,p),p)],q),B.bE),p,p,p,468,p,p,384)}}
 A.a6n.prototype={
 $1(a){return new A.dY(B.ff,new A.r4(A.Dt(B.cA,a),null),null)},
 $S:61}
@@ -65938,7 +65938,7 @@ B.eA=new A.cn(0,1)
 B.vM=new A.cn(0,-1)
 B.vN=new A.cn(1,0)
 B.vO=new A.cn(1,1)
-B.vP=new A.cn(0.9,-0.9)
+B.vP=new A.cn(0.95,-0.15)
 B.vQ=new A.cn(-1,-1)
 B.vR=new A.cn(0,1.2)
 B.vS=new A.cn(0.975,-0.95)
