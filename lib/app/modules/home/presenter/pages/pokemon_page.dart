@@ -118,6 +118,7 @@ class _PokemonPageState extends State<PokemonPage> {
                 } else if (state is SuccessState) {
                   if (state.list.isEmpty) {
                     return Center(
+                      key: ValueKey(state.list.toString().hashCode),
                       child: Column(
                         children: [
                           const SizedBox(height: 32),
@@ -136,7 +137,11 @@ class _PokemonPageState extends State<PokemonPage> {
                       ),
                     );
                   }
-                  return Center(child: ListPokemon(pokemons: state.list));
+                  return Center(
+                      child: ListPokemon(
+                    key: ValueKey(state.list.toString().hashCode),
+                    pokemons: state.list,
+                  ));
                 } else if (state is ErrorState) {
                   return Text(state.error.message);
                 }
