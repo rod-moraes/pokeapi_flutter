@@ -4,6 +4,7 @@ import 'package:pokeapi_flutter/app/modules/home/domain/entities/type_pokemon.da
 
 import '../../../../../shared/utils/responsividade_utils.dart';
 import '../../../domain/entities/pokemon.dart';
+import '../../utils/show_details_pokemon.dart';
 import '../type_pokemon_tag_widget.dart';
 import 'button_top_pokemon.dart';
 
@@ -79,7 +80,9 @@ class DadosTopPokemon extends StatelessWidget {
         const SizedBox(height: 24),
         ButtonTopPokemon(
           icon: FontAwesomeIcons.thunderstorm,
-          onTap: () {},
+          onTap: () {
+            ShowDatailsPokemon.showDetailsPokemon(pokemon);
+          },
           label: "Mais Detalhes",
         ),
       ],

@@ -7,16 +7,19 @@ class Pokemon extends Equatable {
   final String description;
   final String spriteDreamUrl;
   final String spriteHomeUrl;
+  final List<dynamic> stats;
 
-  const Pokemon(
-      {required this.id,
-      required this.name,
-      required this.types,
-      required this.description,
-      required this.spriteDreamUrl,
-      required this.spriteHomeUrl});
+  const Pokemon({
+    required this.id,
+    required this.name,
+    required this.types,
+    required this.description,
+    required this.spriteDreamUrl,
+    required this.spriteHomeUrl,
+    required this.stats,
+  });
 
   @override
   List<Object> get props =>
-      [id, name, types, description, spriteDreamUrl, spriteHomeUrl];
+      [id, name, types, description, spriteDreamUrl, spriteHomeUrl, stats];
 }

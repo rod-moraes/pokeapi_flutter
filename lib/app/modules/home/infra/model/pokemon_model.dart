@@ -8,14 +8,15 @@ class PokemonModel extends Pokemon {
     required String description,
     required String spriteDreamUrl,
     required String spriteHomeUrl,
+    required List<dynamic> stats,
   }) : super(
-          id: id,
-          name: name,
-          types: types,
-          description: description,
-          spriteDreamUrl: spriteDreamUrl,
-          spriteHomeUrl: spriteHomeUrl,
-        );
+            id: id,
+            name: name,
+            types: types,
+            description: description,
+            spriteDreamUrl: spriteDreamUrl,
+            spriteHomeUrl: spriteHomeUrl,
+            stats: stats);
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(
@@ -25,6 +26,7 @@ class PokemonModel extends Pokemon {
       description: _getDescriptionFromJson(json),
       spriteHomeUrl: _getSpriteHomeUrlFromJson(json),
       spriteDreamUrl: _getSpriteDreamUrlFromJson(json),
+      stats: json['stats'],
     );
   }
 
@@ -35,6 +37,7 @@ class PokemonModel extends Pokemon {
       "flavor_text_entries": [
         {'flavor_text': description}
       ],
+      "stats": stats,
       "types": types
           .map((type) => {
                 "type": {"name": type}

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 import '../../../domain/entities/pokemon.dart';
 import '../../../domain/entities/type_pokemon.dart';
+import '../../utils/show_details_pokemon.dart';
 import '../card_top_pokemon/button_top_pokemon.dart';
 import '../type_pokemon_tag_widget.dart';
 
@@ -81,7 +82,9 @@ class TilePokemon extends StatelessWidget {
                       label: "Mais Detalhes",
                       backgroundColor: type.color,
                       color: Colors.white,
-                      onTap: () {},
+                      onTap: () {
+                        ShowDatailsPokemon.showDetailsPokemon(pokemon);
+                      },
                     ),
                   ],
                 ),
